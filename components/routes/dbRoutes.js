@@ -1,7 +1,6 @@
 const express = require('express')
 const path = require('path')
 const dbUtil = require(path.join(__dirname, '/../dbUtil'))
-
 const api = express.Router()
 
 api
@@ -16,7 +15,7 @@ api
         if (!err) {
           res.send(r)
         } else {
-          res.status(500).json(err)
+          res.status(500).send(err)
         }
       })
     })

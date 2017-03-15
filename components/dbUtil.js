@@ -1,10 +1,9 @@
 const Datastore = require('nedb')
 const path = require('path')
 const db = new Datastore({
-  filename: path.join(__dirname, './_mockData.db')
+  filename: path.join(__dirname, './mockData.db'),
+  autoload: true
 })
-
-db.loadDatabase()
 
 exports.insert = (doc, callback) => {
   db.insert(doc, callback)
@@ -18,6 +17,6 @@ exports.findOne = (query, callback) => {
   db.findOne(query, callback)
 }
 
-exports.flush = (callback) => {
+exports.flush = callback => {
   db.remove({}, { multi: true }, callback)
 }
