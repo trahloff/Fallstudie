@@ -10,6 +10,6 @@ app
     .use('/', require('./components/routes/dbRoutes.js'))
 
 /* istanbul ignore if  */
-if (require.main === module) app.listen(process.env.PORT || 8080)
+if (require.main === module) app.listen(process.env.PORT || 8082)
 
 module.exports = app
