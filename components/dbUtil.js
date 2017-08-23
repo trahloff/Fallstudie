@@ -1,3 +1,5 @@
+'use strict'
+
 const Datastore = require('nedb')
 const path = require('path')
 const db = new Datastore({

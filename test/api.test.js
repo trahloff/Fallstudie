@@ -1,3 +1,5 @@
+'use strict'
+
 /* ---------------------Require Dependencies that are used for all tests--------------------- */
 const chai = require('chai').use(require('chai-http')) // TODO consider using superagent
 const should = chai.should()
