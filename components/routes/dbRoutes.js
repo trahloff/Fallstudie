@@ -7,6 +7,10 @@ const api = express.Router()
 
 api
 
+    .get('/', (req, res) => {
+      res.send('<h1>Works.</h1>')
+    })
+
     .post('/hello', (req, res) => {
       res.send(req.body.name)
     })

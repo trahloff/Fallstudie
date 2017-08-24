@@ -40,6 +40,20 @@ describe('REST', () => {
     done()
   })
 
+  it('GET / should return greeting', done => {
+    let user = 'werner'
+    chai.request(restEndpoint)
+            .get('/')
+            .send()
+            .end((err, res) => {
+              ;(err === null).should.be.true
+              res.should.have.status(200)
+              res.text.should.be.a('string')
+              res.text.should.be.eql('<h1>Works.</h1>')
+              done()
+            })
+  })
+
   it('POST /hello should return input name', done => {
     let user = 'werner'
     chai.request(restEndpoint)
