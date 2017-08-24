@@ -3,6 +3,7 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const PORT = process.env.PORT || 8082
 
 app
     .use(bodyParser.json())
@@ -12,6 +13,6 @@ app
     .use('/', require('./components/routes/dbRoutes.js'))
 
 /* istanbul ignore if  */
-if (require.main === module) app.listen(process.env.PORT || 8082)
+if (require.main === module) app.listen(() => console.log(PORT))
 
 module.exports = app
