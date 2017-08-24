@@ -28,5 +28,6 @@ jobs:
          name: Deploy Master to K8S
          command: |
            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+             chmod +x ./deploy.sh
              ./deploy.sh
            fi
