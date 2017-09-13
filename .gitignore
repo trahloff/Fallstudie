@@ -1,5 +1,6 @@
 node_modules
 coverage
+report
 mockdata.db
 *.log
 *.db

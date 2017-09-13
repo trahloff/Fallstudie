@@ -28,6 +28,8 @@ describe('REST', () => {
     'date': '01-01-2017'
   } ]
 
+  let docID = ''
+
   beforeEach(done => {
     dbUtil.flush(() => dbUtil.insert(testBaseDocs, (err, newDoc) => {
       (err === null).should.be.true
@@ -35,13 +37,12 @@ describe('REST', () => {
     }))
   })
 
-  it('should return a function as server', done => {
+  it('should return a server function', done => {
     restEndpoint.should.be.a('function')
     done()
   })
 
   it('GET / should return greeting', done => {
-    let user = 'werner'
     chai.request(restEndpoint)
             .get('/')
             .send()
@@ -54,26 +55,9 @@ describe('REST', () => {
             })
   })
 
-  it('POST /hello should return input name', done => {
-    let user = 'werner'
+  it('POST /doc with single document should insert document and return DB Entry', done => {
     chai.request(restEndpoint)
-            .post('/hello')
-            .set('content-type', 'application/json')
-            .send({
-              name: user
-            })
-            .end((err, res) => {
-              ;(err === null).should.be.true
-              res.should.have.status(200)
-              res.text.should.be.a('string')
-              res.text.should.be.eql(user)
-              done()
-            })
-  })
-
-  it('POST /InsertDocument with single Doc should insert Doc and return DB Entry', done => {
-    chai.request(restEndpoint)
-          .post('/InsertDocument')
+          .post('/doc')
           .set('content-type', 'application/json')
           .send({
             doc: testInsertDocs[0]
@@ -85,13 +69,14 @@ describe('REST', () => {
             res.body.id.should.be.eql(testInsertDocs[0].id)
             res.body.name.should.be.eql(testInsertDocs[0].name)
             res.body._id.should.be.a('string')
+            docID = res.body.id
             done()
           })
   })
 
-  it('POST /InsertDocument with multiple Docs should insert Doc and return DB Entry', done => {
+  it('POST /doc with multiple Docs should insert Doc and return DB Entry', done => {
     chai.request(restEndpoint)
-        .post('/InsertDocument')
+        .post('/doc')
         .set('content-type', 'application/json')
         .send({
           doc: testInsertDocs
@@ -111,13 +96,11 @@ describe('REST', () => {
         })
   })
 
-  it('GET /GetSingleDocument should return single DB Entry', done => {
+  it('GET /doc/:id should return single DB entries', done => {
     chai.request(restEndpoint)
-        .get('/GetSingleDocument')
+        .get(`/doc/${docID}`)
         .set('content-type', 'application/json')
-        .send({
-          'date': '01-01-2017'
-        })
+        .send()
         .end((err, res) => {
           ;(err === null).should.be.true
           res.should.have.status(200)
@@ -128,13 +111,11 @@ describe('REST', () => {
         })
   })
 
-  it('GET /GetMultipleDocuments should return single DB Entry', done => {
+  it('GET /doc should return all DB entries', done => {
     chai.request(restEndpoint)
-        .get('/GetMultipleDocuments')
+        .get('/doc')
         .set('content-type', 'application/json')
-        .send({
-          'date': '01-01-2017'
-        })
+        .send()
         .end((err, res) => {
           ;(err === null).should.be.true
           res.should.have.status(200)

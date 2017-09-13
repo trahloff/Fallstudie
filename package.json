@@ -1,39 +1,37 @@
 {
-    "name": "Fallstudie",
-    "version": "1.0.0",
-    "repository": "https://github.com/trahloff/Fallstudie",
-    "description": "whalalalalala",
-    "main": "app.js",
-    "scripts": {
-        "start": "node app.js",
-        "test": "standard --fix && mocha",
-        "cover": "istanbul cover node_modules/mocha/bin/_mocha",
-        "prepush": "npm test"
-    },
-    "author": ["Tobias Rahloff <rahloff@gmail.com>"],
-    "license": "GPL-3.0",
-    "dependencies": {
-        "async": "^1.5.2",
-        "body-parser": "1.16.1",
-        "express": "4.14.0",
-        "google-protobuf": "^3.0.0",
-        "grpc": "^1.0.0",
-        "nedb": "1.8.0",
-        "request": "^2.81.0"
-    },
-
-    "devDependencies": {
-        "chai": "3.5.0",
-        "chai-http": "3.0.0",
-        "debug": "2.6.1",
-        "husky": "0.13.1",
-        "istanbul": "0.4.5",
-        "mocha": "3.2.0",
-        "standard": "8.6.0"
-    },
-    "standard": {
-        "ignore": [
-            "**/test/**"
-        ]
-    }
+  "name": "demoServer",
+  "version": "1.0.0",
+  "repository": "https://github.com/trahloff/Fallstudie",
+  "description": "This is a very basic RESTful API server written in NodeJS",
+  "main": "app.js",
+  "scripts": {
+    "code": "plato -r -q -d report components/*.js",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha",
+    "start": "node app.js",
+    "test": "standard --fix && mocha"
+  },
+  "author": [
+    "Tobias Rahloff <rahloff@gmail.com>"
+  ],
+  "license": "GPL-3.0",
+  "dependencies": {
+    "body-parser": "1.16.1",
+    "express": "4.14.0",
+    "nedb": "1.8.0"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "chai-http": "3.0.0",
+    "debug": "2.6.1",
+    "istanbul": "0.4.5",
+    "mocha": "3.2.0",
+    "plato": "^1.7.0",
+    "standard": "8.6.0"
+  },
+  "standard": {
+    "ignore": [
+      "**/test/**",
+      "**/report/**"
+    ]
+  }
 }

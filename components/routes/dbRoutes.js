@@ -11,40 +11,21 @@ api
       res.send('<h1>Works.</h1>')
     })
 
-    .post('/hello', (req, res) => {
-      res.send(req.body.name)
-    })
-
-    .post('/InsertDocument', (req, res) => {
+    .post('/doc', (req, res) => {
       dbUtil.insert(req.body.doc, (err, r) => {
-        /* istanbul ignore else  */
-        if (!err) {
-          res.send(r)
-        } else {
-          res.status(500).send(err)
-        }
+        err ? res.status(500).send(err) : res.send(r)
       })
     })
 
-    .get('/GetSingleDocument', (req, res) => {
+    .get('/doc/:id', (req, res) => {
       dbUtil.findOne(req.params.id, (err, r) => {
-        /* istanbul ignore else  */
-        if (!err) {
-          res.send(r)
-        } else {
-          res.status(500).send(err)
-        }
+        err ? res.status(500).send(err) : res.send(r)
       })
     })
 
-    .get('/GetMultipleDocuments', (req, res) => {
-      dbUtil.find(req.params.id, (err, r) => {
-        /* istanbul ignore else  */
-        if (!err) {
-          res.send(r)
-        } else {
-          res.status(500).send(err)
-        }
+    .get('/doc', (req, res) => {
+      dbUtil.find({}, (err, r) => {
+        err ? res.status(500).send(err) : res.send(r)
       })
     })
 
