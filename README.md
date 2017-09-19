@@ -12,7 +12,7 @@ This is a very basic RESTful API server written in NodeJS
 
 - Install dependencies: `$ yarn`
 - Run the server: `$ yarn start`
-  - **this will start the server. the server will listen for clients. there will be no stdout because it is listening for request. this is for running the server, not for testing. if you want to test this server you have to run `$ yarn test`**
+  - **this will start the server. the server will wait for clients. there will be no stdout because it is listening for request. this is for running the server, not for testing. if you want to test this server you have to run `$ yarn test`**
 - Run the tests: `$ yarn test`
 - Generate test coverage report: `$ yarn coverage`
   - the report will be located in `/coverage/`
