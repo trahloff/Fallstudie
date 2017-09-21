@@ -42,9 +42,9 @@ describe('REST', () => {
     done()
   })
 
-  it('GET / should return greeting', done => {
+  it('GET /test should return greeting', done => {
     chai.request(restEndpoint)
-            .get('/')
+            .get('/test')
             .send()
             .end((err, res) => {
               ;(err === null).should.be.true

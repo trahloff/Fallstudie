@@ -6,11 +6,11 @@ WORKDIR /usr/src/app
 COPY . /usr/src/app
 
 # Install Packages & Build Frontend
-RUN npm run build
+RUN yarn
 
 # Clean Up
 RUN yarn clean
 
-EXPOSE 8082
+EXPOSE 80
 
-CMD [ "npm", "start" ]
+CMD [ "yarn", "start" ]

@@ -1,7 +1,7 @@
 {
   "name": "demoServer",
-  "version": "1.0.0",
-  "repository": "https://github.com/trahloff/Fallstudie",
+  "version": "1.1.4",
+  "repository": "https://github.ibm.com/CloudNetworking/networking-cicd",
   "description": "This is a very basic RESTful API server written in NodeJS",
   "main": "app.js",
   "scripts": {

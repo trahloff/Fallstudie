@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Network Tribe CI/CD Demo</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <style>
+    body {
+      padding-top: 2em;
+    }
+
+    .data {
+      margin-top: 0.2em;
+      margin-right: 0.2em;
+      margin-bottom: 0.2em;
+    }
+
+    #select {
+      width: 100%;
+    }
+  </style>
+  <script>
+    const routes = [
+      'doc',
+      'test'
+    ];
+    const methods = [
+      'get',
+      'post',
+      'delete'
+    ];
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Network Tribe CI/CD Demo</h2>
+    <hr />
+    <form id="form">
+      <div class="form-group">
+        <label class="form-control-label" for="select">Choose your route</label>
+        <br>
+        <select class="custom-select" id="select"></select>
+      </div>
+      <div class="form-group">
+        <label class="form-control-label" for="method">HTTP Method</label>
+        <br>
+        <select class="custom-select" id="method"></select>
+      </div>
+      <div class="form-group">
+        <label class="form-control-label" for="params">Enter your route params</label>
+        <br>
+        <input type="text" class="form-control" placeholder="test=1&hello=world&..." id="params">
+      </div>
+      <div class="form-group" id="body">
+        <label class="form-control-label" for="body">Enter your data</label>
+        <br>
+        <input type="text" class="form-control data" placeholder="id" id="id">
+        <input type="text" class="form-control data" placeholder="name" id="name">
+        <input type="text" class="form-control data" placeholder="date" id="date">
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+      <div class="form-group">
+        <label class="form-control-label" for="result">Result</label>
+        <textarea rows="8" id="result" class="form-control" placeholder="Result" readonly></textarea>
+      </div>
+    </form>
+  </div>
+  <script>
+    const $select = $('#select');
+    const $form = $('#form');
+    const $params = $('#params');
+    const $result = $('#result');
+    const $method = $('#method');
+    const $id = $('#id');
+    const $name = $('#name');
+    const $date = $('#date');
+
+    routes.map(route => $select.append(`<option value=${route}>${route}</option>`));
+    methods.map(method => $method.append(`<option value=${method}>${method.toUpperCase()}</option>`));
+
+    $form.on('submit', event => {
+      event.preventDefault();
+
+      const currentUrl = $select.val();
+      const params = $params.val();
+      const methodSelected = $method.val();
+      const id = $id.val();
+      const name = $name.val();
+      const date = $date.val();
+      const body = (id && name && date) ? {
+        doc: {
+          id: id,
+          name: name,
+          date: date
+        }
+      } : null
+
+      axios({
+        method: methodSelected,
+        url: `${currentUrl}?${params}`,
+        data: body
+      }).then(response => {
+        $result.val(JSON.stringify(response.data));
+      });
+
+    });
+  </script>
+</body>
+
+</html>

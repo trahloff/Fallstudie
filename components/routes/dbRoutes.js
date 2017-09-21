@@ -8,7 +8,7 @@ const api = express.Router()
 api
 
     .get('/', (req, res) => {
-      res.send('<h1>Works.</h1>')
+      res.sendFile(path.join(__dirname, '/../index.html'))
     })
 
     .post('/doc', (req, res) => {
@@ -27,6 +27,16 @@ api
       dbUtil.find({}, (err, r) => {
         err ? res.status(500).send(err) : res.send(r)
       })
+    })
+
+    .delete('/doc', (req, res) => {
+      dbUtil.flush((err, r) => {
+        err ? res.status(500).send(err) : res.send(`${r} document${r === 1 ? '' : 's'} deleted`)
+      })
+    })
+
+    .get('/test', (req, res) => {
+      res.send('<h1>Works.</h1>')
     })
 
 module.exports = api
