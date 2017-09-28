@@ -54,14 +54,17 @@ volumes:[
     def image_tags_list = pipeline.getMapValues(image_tags_map)
 
     stage ('install dependencies and test') {
+      steps {
       container('node') {
 
         sh "yarn && yarn test"
 
       }
     }
+  }
 
     stage ('test deployment') {
+      steps {
       container('helm') {
 
         // run helm chart linter
@@ -82,11 +85,13 @@ volumes:[
 
       }
     }
+  }
 
 
       stage ('deploy to k8s') {
-
+        steps {
         container('helm') {
+
           // Deploy using Helm chart
           pipeline.helmDeploy(
             dry_run       : false,
@@ -99,9 +104,10 @@ volumes:[
             memory        : config.app.memory,
             hostname      : config.app.hostname
           )
-        }
 
+        }
       }
+    }
 
 
   }
