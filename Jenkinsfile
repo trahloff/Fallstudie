@@ -21,3 +21,10 @@ pipeline {
         }
     }
 }
+
+
+// ERROR:
+// [trahloff_Fallstudie_master---] Running shell script
+// + docker pull maven:3-alpine
+// /var/jenkins_home/workspace/trahloff_Fallstudie_master---@tmp/durable-cc51ceb3/script.sh: 2:
+// /var/jenkins_home/workspace/trahloff_Fallstudie_master---@tmp/durable-cc51ceb3/script.sh: docker: not found
