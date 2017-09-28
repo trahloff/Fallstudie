@@ -1,0 +1,24 @@
+{
+  "app": {
+    "name": "testapi",
+    "replicas": "3",
+    "cpu": "10m",
+    "memory": "128Mi"
+  },
+  "container_repo": {
+    "host": "quay.io",
+    "master_acct": "lachie83",
+    "alt_acct": "lachie83",
+    "jenkins_creds_id": "quay_creds",
+    "repo": "croc-hunter",
+    "dockeremail": ".",
+    "dockerfile": "./"
+  },
+  "pipeline": {
+      "enabled": true,
+      "debug": false,
+      "library": {
+        "branch": "master"
+      }
+  }
+}
