@@ -3,9 +3,11 @@ pipeline {
 
     stages {
         stage('Build') {
-            steps {
-                echo 'Building..'
-            }
+          agent { docker 'maven:3-alpine' }
+          steps {
+              echo 'Hello, Maven'
+              sh 'mvn --version'
+          }
         }
         stage('Test') {
             steps {
