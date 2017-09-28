@@ -16,7 +16,9 @@ volumes:[
     hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
 ]){
 
-  node ('jenkins-pipeline') {
+  pipeline {
+
+    agent any
 
     def pwd = pwd()
     def chart_dir = "${pwd}/testapi-chart"
@@ -82,8 +84,6 @@ volumes:[
     }
 
 
-    // deploy only the master branch
-    if (env.BRANCH_NAME == 'master') {
       stage ('deploy to k8s') {
 
         container('helm') {
@@ -102,7 +102,7 @@ volumes:[
         }
 
       }
-    }
+
 
   }
 }
