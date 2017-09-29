@@ -16,7 +16,7 @@ volumes:[
     hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
 ]){
 
-  node {
+  node ("master") {
 
     def pwd = pwd()
     def chart_dir = "${pwd}/testapi-chart"
@@ -29,27 +29,27 @@ volumes:[
     println "pipeline config ==> ${config}"
 
     // set additional git envvars for image tagging
-    pipeline.gitEnvVars()
+    pipelineUtil.gitEnvVars()
 
     // If pipeline debugging enabled
-    if (config.pipeline.debug) {
+    if (config.pipelineUtil.debug) {
       println "DEBUG ENABLED"
       sh "env | sort"
 
       println "Runing kubectl/helm tests"
       container('kubectl') {
-        pipeline.kubectlTest()
+        pipelineUtil.kubectlTest()
       }
       container('helm') {
-        pipeline.helmConfig()
+        pipelineUtil.helmConfig()
       }
     }
 
     // tag image with version, and branch-commit_id
-    def image_tags_map = pipeline.getContainerTags(config)
+    def image_tags_map = pipelineUtil.getContainerTags(config)
 
     // compile tag list
-    def image_tags_list = pipeline.getMapValues(image_tags_map)
+    def image_tags_list = pipelineUtil.getMapValues(image_tags_map)
 
     stage ('install dependencies and test') {
       container('node') {
@@ -63,10 +63,10 @@ volumes:[
       container('helm') {
 
         // run helm chart linter
-        pipeline.helmLint(chart_dir)
+        pipelineUtil.helmLint(chart_dir)
 
         // run dry-run helm chart installation
-        pipeline.helmDeploy(
+        pipelineUtil.helmDeploy(
           dry_run       : true,
           name          : config.app.name,
           namespace     : config.app.name,
@@ -88,7 +88,7 @@ volumes:[
 
         container('helm') {
           // Deploy using Helm chart
-          pipeline.helmDeploy(
+          pipelineUtil.helmDeploy(
             dry_run       : false,
             name          : config.app.name,
             namespace     : config.app.name,
