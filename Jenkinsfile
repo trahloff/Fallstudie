@@ -7,7 +7,7 @@ def pipelineUtil = new io.estrado.Pipeline()
 
 
 pipeline {
-    agent none
+    agent any
 
     stages {
         stage('Build') {
