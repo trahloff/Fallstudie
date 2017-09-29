@@ -16,7 +16,7 @@ volumes:[
     hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
 ]){
 
-  node ("master") {
+  node ("main-docker-host") {
 
     def pwd = pwd()
     def chart_dir = "${pwd}/testapi-chart"
