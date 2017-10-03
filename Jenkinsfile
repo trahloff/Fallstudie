@@ -1,9 +1,7 @@
 // taas-swarm-lon02
 
 pipeline {
-    agent {
-        node { label 'taas-swarm-lon02' }
-    }
+    agent 'taas-swarm-lon02'
     stages {
         stage("Build") {
             agent {
