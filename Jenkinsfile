@@ -1,21 +1,19 @@
 // taas-swarm-lon02
 
 pipeline {
-    agent none
+    agent {
+        node { label 'taas-swarm-lon02' }
+    }
     stages {
-        stage('Example Build') {
-            agent { docker 'maven:3-alpine' }
-            steps {
-                echo 'Hello, Maven'
-                sh 'mvn --version'
+        stage("Build") {
+            agent {
+                docker {
+                reuseNode true
+                image 'node:latest'
+                }
             }
-        }
-        stage('Example Test') {
-            agent { docker 'openjdk:8-jre' }
             steps {
-                echo 'Hello, JDK'
-                sh 'java -version'
+                sh 'node --version'
             }
         }
     }
-}
