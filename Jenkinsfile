@@ -5,29 +5,22 @@
 // @Library('github.com/lachie83/jenkins-pipeline@v0.1')
 // def pipeline = new io.estrado.Pipeline()
 
+
 pipeline {
-
-  agent {
-    kubernetes {
-      //cloud 'kubernetes'
-      label 'vpnaas'
-      containerTemplate {
-        name 'maven'
-        image 'maven:3.3.9-jdk-8-alpine'
-        ttyEnabled true
-        command 'cat'
-      }
+    agent {
+        node { label 'my-docker' }
     }
-  }
-
-  stages {
-    stage('Run maven') {
-      steps {
-        container('maven') {
-          sh 'mvn -version'
+    stages {
+        stage("Build") {
+            agent {
+                docker {
+                reuseNode true
+                image 'maven:3.5.0-jdk-8'
+                }
+            }
+            steps {
+                sh 'mvn -version'
+            }
         }
-      }
     }
-  }
-
 }
