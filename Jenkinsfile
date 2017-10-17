@@ -1,8 +1,8 @@
-// #!/usr/bin/groovy
+#!/usr/bin/groovy
 
 // load pipeline functions
-// @Library('github.com/lachie83/jenkins-pipeline@v0.1')
-// def pipelineUtils = new io.estrado.Pipeline()
+@Library('github.com/lachie83/jenkins-pipeline@v0.1')
+def pipelineUtils = new io.estrado.Pipeline()
 
 
 pipeline {
