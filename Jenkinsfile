@@ -1,26 +1,28 @@
 // #!/usr/bin/groovy
-//
-// // load pipeline functions
-// // Requires pipeline-github-lib plugin to load library from github
+
+// load pipeline functions
 // @Library('github.com/lachie83/jenkins-pipeline@v0.1')
-// def pipeline = new io.estrado.Pipeline()
+// def pipelineUtils = new io.estrado.Pipeline()
 
 
 pipeline {
-    agent {
-        node { label 'my-docker' }
-    }
+    agent { label 'taas-swarm-lon02' }
+    /* ------------------- */
     stages {
+
         stage("Build") {
             agent {
                 docker {
-                reuseNode true
-                image 'maven:3.5.0-jdk-8'
+                  reuseNode true
+                  image 'maven:3.5.0-jdk-8'
                 }
             }
+
             steps {
                 sh 'mvn -version'
             }
         }
+
     }
+
 }
