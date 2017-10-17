@@ -1,4 +1,4 @@
-// #!/usr/bin/groovy
+#!/usr/bin/groovy
 
 // load pipeline functions
 @Library('github.com/lachie83/jenkins-pipeline@v0.1')
@@ -10,25 +10,47 @@ def config = new groovy.json.JsonSlurperClassic().parseText(inputFile)
 println "pipeline config ==> ${config}"
 
 
+// pipeline {
+//     agent { label 'taas-swarm-lon02' }
+//     stages {
+//
+//       /* ------------------------------------------------- */
+//         stage("Build") {
+//             agent { docker { image 'yarn:latest' } }
+//             steps {
+//               sh 'yarn'
+//              }
+//         }
+//
+//       /* ------------------------------------------------- */
+//         stage("Test") {
+//             agent { docker { image 'yarn:latest' } }
+//             steps {
+//               sh 'yarn test'
+//              }
+//         }
+//
+//     }
+// }
+
 pipeline {
     agent { label 'taas-swarm-lon02' }
+    /* ------------------- */
     stages {
 
-      /* ------------------------------------------------- */
         stage("Build") {
-            agent { docker { image 'yarn:latest' } }
-            steps {
-              sh 'yarn'
-             }
-        }
+            agent {
+                docker {
+                  reuseNode true
+                  image 'maven:3.5.0-jdk-8'
+                }
+            }
 
-      /* ------------------------------------------------- */
-        stage("Test") {
-            agent { docker { image 'yarn:latest' } }
             steps {
-              sh 'yarn test'
-             }
+                sh 'mvn -version'
+            }
         }
 
     }
+
 }
