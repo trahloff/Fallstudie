@@ -17,13 +17,17 @@ pipeline {
       /* ------------------------------------------------- */
         stage("Build") {
             agent { docker { image 'yarn:latest' } }
-            steps { sh 'yarn' }
+            steps {
+              sh 'yarn'
+             }
         }
 
       /* ------------------------------------------------- */
         stage("Test") {
             agent { docker { image 'yarn:latest' } }
-            steps { sh 'yarn test' }
+            steps {
+              sh 'yarn test'
+             }
         }
 
     }
