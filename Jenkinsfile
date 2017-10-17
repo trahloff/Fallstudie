@@ -6,7 +6,7 @@ pipeline {
         stage("Build") {
             agent { docker { image 'node:latest' } }
             steps {
-              sh 'npm install'
+              sh 'yarn'
              }
         }
 
@@ -14,7 +14,7 @@ pipeline {
         stage("Test") {
             agent { docker { image 'node:latest' } }
             steps {
-              sh 'node test'
+              sh 'yarn test'
              }
         }
 
@@ -22,7 +22,7 @@ pipeline {
         stage("Build & Push Docker Image") {
             agent { docker { image 'docker:latest' } }
             steps {
-              echo "washsk"
+              sh "docker build -t trahloff/testapi:latest -t trahloff/testapi:1.1.8 ."
              }
         }
 
