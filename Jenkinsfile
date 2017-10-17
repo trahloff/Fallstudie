@@ -22,7 +22,7 @@ pipeline {
         stage("Build & Push Docker Image") {
             agent { docker { image 'docker:latest' } }
             steps {
-              sh "docker build -t trahloff/testapi:latest -t trahloff/testapi:1.1.8 ."
+              newImage = docker.build('whatever')
              }
         }
 
