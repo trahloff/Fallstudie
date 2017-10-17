@@ -4,7 +4,7 @@ pipeline {
 
       /* ------------------------------------------------- */
         stage("Build") {
-            agent { docker { image 'yarn:latest' } }
+            agent { docker { image 'jonbaldie/yarn:latest' } }
             steps {
               sh 'yarn'
              }
@@ -12,7 +12,7 @@ pipeline {
 
       /* ------------------------------------------------- */
         stage("Test") {
-            agent { docker { image 'yarn:latest' } }
+            agent { docker { image 'jonbaldie/yarn:latest' } }
             steps {
               sh 'yarn test'
              }
