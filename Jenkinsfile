@@ -4,17 +4,25 @@ pipeline {
 
       /* ------------------------------------------------- */
         stage("Build") {
-            agent { docker { image 'jonbaldie/yarn:latest' } }
+            agent { docker { image 'node:latest' } }
             steps {
-              sh 'yarn'
+              sh 'npm install'
              }
         }
 
       /* ------------------------------------------------- */
         stage("Test") {
-            agent { docker { image 'jonbaldie/yarn:latest' } }
+            agent { docker { image 'node:latest' } }
             steps {
-              sh 'yarn test'
+              sh 'node test'
+             }
+        }
+
+      /* ------------------------------------------------- */
+        stage("Build & Push Docker Image") {
+            agent { docker { image 'docker:latest' } }
+            steps {
+
              }
         }
 
