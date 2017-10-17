@@ -1,5 +1,9 @@
+@Library('github.com/lachie83/jenkins-pipeline@dev')
+def pipeline = new io.estrado.Pipeline()
+
 pipeline {
     agent { label 'taas-swarm-lon02' }
+
     stages {
 
       /* ------------------------------------------------- */
@@ -22,7 +26,9 @@ pipeline {
         stage("Build & Push Docker Image") {
             agent { docker { image 'docker:latest' } }
             steps {
-              newImage = docker.build('whatever')
+              sh """
+                  docker build -t whatev .
+              """
              }
         }
 
