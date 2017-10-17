@@ -7,6 +7,11 @@ def pipelineUtils = new io.estrado.Pipeline()
 
 pipeline {
     agent { label 'taas-swarm-lon02' }
+
+    // read in required jenkins workflow config values
+    def inputFile = readFile('Jenkinsfile.json')
+    def config = new groovy.json.JsonSlurperClassic().parseText(inputFile)
+    println "pipeline config ==> ${config}"
     /* ------------------- */
     stages {
 
